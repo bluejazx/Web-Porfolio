@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting…</title>
+    <!--
+      SPA fallback for GitHub Pages project sites.
+      GH Pages serves 404.html for any unknown path; this single-page app has
+      only one real route, so we redirect everything back to the base path.
+    -->
+    <script>
+      // Preserve the base path (/Web-Porfolio/) and hand control back to index.
+      var base = '/Web-Porfolio/';
+      var target = base + window.location.hash;
+      window.location.replace(target);
+    </script>
+    <meta http-equiv="refresh" content="0;url=/Web-Porfolio/" />
+  </head>
+  <body>
+    <p>Redirecting to <a href="/Web-Porfolio/">the portfolio</a>…</p>
+  </body>
+</html>
