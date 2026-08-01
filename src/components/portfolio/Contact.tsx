@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react"
+import { MapPin, ArrowUp } from "lucide-react"
 import { GradientShimmer } from "@/components/ui/gradient-shimmer"
 import { Reveal } from "./Reveal"
 import { iconFor } from "@/lib/icon"
@@ -54,7 +54,15 @@ export function Contact() {
         </Reveal>
 
         <Reveal delay={0.12}>
-          <p className="mt-16 font-mono text-xs text-white/35">
+          {/* Back to top — jumps to the hero (#top). */}
+          <a
+            href="#top"
+            className="mt-16 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-2.5 text-sm text-white/70 transition hover:border-cyan-400/40 hover:text-white"
+          >
+            <ArrowUp className="h-4 w-4" />
+            Back to top
+          </a>
+          <p className="mt-10 font-mono text-xs text-white/35">
             {person.name} · {meta.repo} · v{meta.version}
           </p>
         </Reveal>
