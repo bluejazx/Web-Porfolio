@@ -1,3 +1,4 @@
+import { MapPin } from "lucide-react"
 import { GradientShimmer } from "@/components/ui/gradient-shimmer"
 import { Reveal } from "./Reveal"
 import { iconFor } from "@/lib/icon"
@@ -7,10 +8,11 @@ const { person, meta } = portfolio
 
 export function Contact() {
   return (
-    <section id="contact" className="relative scroll-mt-24 py-24 sm:py-32">
+    <section id="contact" className="snap-section relative scroll-mt-24 py-24 sm:py-32">
       <div className="mx-auto max-w-3xl px-6 text-center">
         <Reveal>
-          <p className="font-mono text-xs uppercase tracking-[0.35em] text-white/40">
+          <p className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.35em] text-white/40">
+            <MapPin className="h-3.5 w-3.5 text-cyan-300/70" />
             Constraint is the medium.
           </p>
           <GradientShimmer

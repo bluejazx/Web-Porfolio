@@ -1,3 +1,4 @@
+import { Layers } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Reveal } from "./Reveal"
 import { iconFor } from "@/lib/icon"
@@ -8,12 +9,25 @@ const rest = portfolio.experiences.slice(1)
 
 export function ExperienceSection() {
   return (
-    <section id="experience" className="relative scroll-mt-24 py-24 sm:py-28">
-      <div className="mx-auto max-w-5xl px-6">
+    <section id="experience" className="snap-section relative scroll-mt-24 py-24 sm:py-28">
+      {/* Low-opacity network backdrop UNDER the aurora mesh. Unsplash
+          photo-1451187580459-43490279c0fa (global node network) — verified 200;
+          .photo-backdrop layers a CSS-gradient fallback beneath it. */}
+      <div
+        className="photo-backdrop opacity-[0.12]"
+        style={{
+          ["--backdrop-img" as string]:
+            "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&q=60&auto=format&fit=crop')",
+        }}
+      />
+      <div className="relative mx-auto max-w-5xl px-6">
         <Reveal>
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/50">
-            The ledger
-          </span>
+          <div className="flex items-center gap-3">
+            <Layers className="h-5 w-5 text-cyan-300" />
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/50">
+              The ledger
+            </span>
+          </div>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Experience
           </h2>

@@ -124,6 +124,9 @@
   }
   html {
     scroll-behavior: smooth;
+    /* Proximity (not mandatory) so mid-section scrolling stays free — the page
+       only settles onto a snap point when you land near one. */
+    scroll-snap-type: y proximity;
   }
   body {
     @apply bg-background text-foreground;
@@ -141,6 +144,33 @@
 @layer utilities {
   .font-mono {
     font-family: var(--font-mono);
+  }
+
+  /* -------------------------------------------------------------------- */
+  /*  Scroll-snap — proximity snap points for full-viewport beats/sections */
+  /* -------------------------------------------------------------------- */
+  .snap-section {
+    scroll-snap-align: start;
+    /* Keep the fixed VersionBadge / sticky context clear of the snap edge. */
+    scroll-snap-stop: normal;
+    scroll-margin-top: 0;
+  }
+
+  /* Low-opacity photographic backdrop that sits UNDER the aurora mesh. Set
+     --backdrop-img to an Unsplash URL; a CSS-gradient fallback is layered
+     beneath so the panel never renders bare if the photo 404s. */
+  .photo-backdrop {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      var(--backdrop-img, none),
+      linear-gradient(135deg, rgba(139, 92, 246, 0.10), rgba(34, 211, 238, 0.06) 55%, rgba(16, 185, 129, 0.08));
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    -webkit-mask-image: radial-gradient(120% 100% at 50% 40%, #000 30%, transparent 88%);
+    mask-image: radial-gradient(120% 100% at 50% 40%, #000 30%, transparent 88%);
   }
 
   /* Full-bleed animated aurora mesh: violet -> cyan -> green glows. */
@@ -194,12 +224,85 @@
     color: transparent;
   }
 
+  /* -------------------------------------------------------------------- */
+  /*  Electric haze — an energized fog that veils the headshot on reveal   */
+  /*  then dissipates slowly (~3s). Re-armed each time beat 2 re-enters.   */
+  /* -------------------------------------------------------------------- */
+  .electric-haze {
+    position: absolute;
+    inset: -12%;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+    mix-blend-mode: screen;
+    background:
+      radial-gradient(60% 60% at 30% 25%, rgba(139, 92, 246, 0.85), transparent 70%),
+      radial-gradient(55% 55% at 72% 40%, rgba(34, 211, 238, 0.8), transparent 68%),
+      radial-gradient(50% 60% at 50% 80%, rgba(16, 185, 129, 0.7), transparent 70%),
+      radial-gradient(45% 45% at 60% 15%, rgba(224, 222, 242, 0.65), transparent 72%);
+    background-size: 200% 200%;
+    filter: blur(14px) saturate(140%);
+  }
+  /* When armed, run the dissipate animation. Removing/re-adding the class
+     (via a React key or state toggle) restarts it. */
+  .electric-haze.is-clearing {
+    animation:
+      haze-dissipate 3s cubic-bezier(0.22, 0.61, 0.36, 1) forwards,
+      haze-churn 1.6s ease-in-out infinite,
+      haze-flicker 0.22s steps(2, end) 6;
+  }
+  @keyframes haze-dissipate {
+    0% {
+      opacity: 1;
+      filter: blur(14px) saturate(160%) brightness(1.25);
+      transform: scale(1.04);
+    }
+    60% {
+      opacity: 0.55;
+      filter: blur(22px) saturate(130%) brightness(1.1);
+    }
+    100% {
+      opacity: 0;
+      filter: blur(40px) saturate(100%) brightness(1);
+      transform: scale(1.12);
+    }
+  }
+  @keyframes haze-churn {
+    0% {
+      background-position: 0% 0%, 100% 20%, 40% 100%, 60% 0%;
+    }
+    100% {
+      background-position: 30% 25%, 70% 45%, 55% 80%, 45% 20%;
+    }
+  }
+  @keyframes haze-flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.72; }
+    100% { opacity: 1; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .aurora-drift {
       animation: none;
     }
+    .electric-haze,
+    .electric-haze.is-clearing {
+      animation: none;
+      opacity: 0;
+    }
     html {
       scroll-behavior: auto;
+      /* No forced settling for reduced-motion users. */
+      scroll-snap-type: none;
+    }
+    .snap-section {
+      scroll-snap-align: none;
+    }
+    /* Ensure framer-motion reveal blocks are visible even if they never enter
+       view under a no-animation preference (belt-and-suspenders). */
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 }

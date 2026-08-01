@@ -1,4 +1,4 @@
-import { Award } from "lucide-react"
+import { Award, BookOpen } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Reveal } from "./Reveal"
 import { iconFor } from "@/lib/icon"
@@ -8,13 +8,16 @@ const { education, skills, honors } = portfolio
 
 export function EducationSkills() {
   return (
-    <section id="education" className="relative scroll-mt-24 py-24 sm:py-28">
+    <section id="education" className="snap-section relative scroll-mt-24 py-24 sm:py-28">
       <div className="mx-auto max-w-5xl px-6">
         {/* Education */}
         <Reveal>
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/50">
-            Foundations
-          </span>
+          <div className="flex items-center gap-3">
+            <BookOpen className="h-5 w-5 text-emerald-300" />
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/50">
+              Foundations
+            </span>
+          </div>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Education
           </h2>

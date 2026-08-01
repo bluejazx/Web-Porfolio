@@ -52,8 +52,18 @@ export function IBMDeepDive() {
   const paragraphs = ibm.long.split("\n\n")
 
   return (
-    <section id="ibm" className="relative scroll-mt-24 py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl px-6">
+    <section id="ibm" className="snap-section relative scroll-mt-24 py-24 sm:py-32">
+      {/* Low-opacity circuit-board backdrop UNDER the aurora mesh (App wash).
+          Unsplash photo-1518770660439-4636190af475 (macro circuitry) — verified
+          200; .photo-backdrop layers a CSS-gradient fallback beneath it. */}
+      <div
+        className="photo-backdrop opacity-[0.13]"
+        style={{
+          ["--backdrop-img" as string]:
+            "url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=60&auto=format&fit=crop')",
+        }}
+      />
+      <div className="relative mx-auto max-w-5xl px-6">
         <Reveal>
           <div className="flex items-center gap-3">
             <Sparkles className="h-5 w-5 text-violet-300" />

@@ -1,3 +1,4 @@
+import { Camera } from "lucide-react"
 import { Reveal } from "./Reveal"
 import { portfolio } from "@/content/portfolio"
 
@@ -5,12 +6,15 @@ const { gallery } = portfolio
 
 export function Gallery() {
   return (
-    <section id="gallery" className="relative scroll-mt-24 py-24 sm:py-28">
+    <section id="gallery" className="snap-section relative scroll-mt-24 py-24 sm:py-28">
       <div className="mx-auto max-w-5xl px-6">
         <Reveal>
-          <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/50">
-            On site
-          </span>
+          <div className="flex items-center gap-3">
+            <Camera className="h-5 w-5 text-violet-300" />
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/50">
+              On site
+            </span>
+          </div>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Gallery
           </h2>
